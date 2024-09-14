@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+    <section class="products">
+        {% for producer in producers %}
+            <div class="product-card">
+                <a href="{% url 'producer:producer_detail' producer.id %}"><img src="{{ producer.logo.url }}" alt="Producer Logo"></a>
+                <h3>{{ producer.producer_name }}</h3>
+                <button>Add to Cart</button>
+            </div>
+        {% endfor %}
+    </section>
+
+{% endblock %}
+

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+    <section class="products">
+        {% for product in products %}
+            <div class="product-card">
+                <a href="{% url 'home:product_detail' product.id %}"><img src="{{ product.image.url }}" alt="Product Image"></a>
+                <span>${{ product.price }}</span>
+                <h3>{{ product.name }}</h3>
+                <button>Add to Cart</button>
+            </div>
+        {% endfor %}
+    </section>
+
+{% endblock %}

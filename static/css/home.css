@@ -1,0 +1,213 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px;
+    color: white;
+}
+
+.menu-icon {
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.search-bar input {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    transition: width 0.4s ease-in-out;
+    width: 150px;
+}
+
+.search-bar input:focus {
+    width: 250px;
+}
+
+.login-btn button {
+    padding: 10px 20px;
+    background-color: #085eb9;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn button:hover {
+     background-color: #05376d;
+
+}
+
+.sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    width: 150px;
+    justify-content: center;
+    display: flex;
+}
+.sidebar.open {
+    left: 0px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px 0;
+    cursor: pointer;
+    margin: 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+     padding: 10px:
+}
+
+
+.sidebar ul li:hover {
+    background-color: #575757;
+    border-radius: 8px;
+}
+
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-card {
+    background-color: #f4f4f4;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card h3 {
+    margin: 15px 0 10px;
+}
+
+.product-card p {
+    font-size: 14px;
+    color: #555;
+}
+
+.product-card span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin: 10px 0;
+}
+
+.product-card button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product-card button:hover {
+    background-color: #0056b3;
+}
+
+
+footer {
+    background-color: black;
+    color: white;
+    padding: 40px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-content div {
+    margin: 10px;
+    max-width: 300px;
+}
+
+.footer-content h4 {
+    margin-bottom: 10px;
+}
+
+.social-media a {
+    margin-right: 10px;
+    display: inline-block;
+}
+
+
+.menu-icon {
+    z-index: 9999;
+}
+.social-media a {
+    margin-right: 10px;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-media ion-icon {
+    font-size: 32px;
+    color: white;
+    transition: transform 0.3s ease, color 0.3s ease;
+    width: 25px;
+    height: 25px;
+}
+
+.social-media ion-icon:hover {
+    transform: scale(1.1);
+}
+
+
+.social-media ion-icon.ion-logo-vk:hover {
+    color: #4C75A3;
+}
+
+.social-media ion-icon.ion-logo-facebook:hover {
+    color: #3b5998;
+}
+
+.-social-media ion-icon.ion-logo-linkedin:hover {
+    color: #0077B5;
+}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+  {{ product.description }}
+
+  {% if similar_product_by_producer %}
+    {% for sim_prod in similar_product_by_producer %}
+
+
+    {% endfor %}
+
+  {% endif %}
+
+
+{% endblock %}
