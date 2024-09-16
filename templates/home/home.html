@@ -2,15 +2,32 @@
 
 
 {% block body %}
-    <section class="products">
-        {% for product in products %}
-            <div class="product-card">
-                <a href="{% url 'home:product_detail' product.id %}"><img src="{{ product.image.url }}" alt="Product Image"></a>
-                <span>${{ product.price }}</span>
-                <h3>{{ product.name }}</h3>
-                <button>Add to Cart</button>
+
+<div id="content" class="container">
+        <section class="content">
+            <h1>Our Products</h1>
+
+
+            <div class="product-grid">
+                {% for product in products %}
+                    <article class="product">
+                        <a href="{% url 'home:product_detail' product.id %}">
+                            <div class="product-image">
+                                <img src="{{ product.image.url }}" alt="Product image">
+                            </div>
+                        </a>
+                        <h3>{{ product.title }}</h3>
+                        <p>{{ product.description }}</p>
+                        <div class="btn-container">
+                            <button class="btn-buy">Buy Now</button>
+                            <button class="btn-buy">Add to basket</button>
+                            <button class="btn-buy">Add to with list</button>
+                        </div>
+                    </article>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </section>
+        </section>
+    </div>
+
 
 {% endblock %}

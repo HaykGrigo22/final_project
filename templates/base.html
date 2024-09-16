@@ -4,62 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Appliances</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <title>Hardware Web Magazine</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="menu-icon" id="menu-icon">
-            &#9776;
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-        </div>
-        <div class="login-btn">
-            <button>Login</button>
-        </div>
-    </nav>
+    <div id="overlay" class="overlay"></div>
 
+    <!-- Top Bar -->
+    <header class="top-bar">
+        <div class="top-bar-left">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="top-bar-center">
+            <input type="text" placeholder="Search products..." class="search-bar">
+        </div>
+        <div class="top-bar-right">
+            <button class="login-btn">Login</button>
+        </div>
+    </header>
 
-    <div class="sidebar" id="sidebar">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
         <ul>
-            <li><a href="{% url 'home:home' %}">Home</a></li>
-            <li><a href="{% url 'producer:producers' %}">Products</a></li>
-            <li><a href="{% url 'home:home' %}">Categories</a></li>
-            <li><a href="{% url 'home:home' %}">Offers</a></li>
-            <li><a href="{% url 'home:home' %}">Support</a></li>
+            <li><a href="{% url 'home:home' %}"><h4>Home</h4></a></li>
+            <li><a href="{% url 'producer:producers' %}"><h4>Producers</h4></a></li>
+            <li><a href="{% url 'category:categories' %}"><h4>Categories</h4></a></li>
+            <li><a href="#"><h4>Safety Gear</h4></a></li>
+            <li><a href="#"><h4>Construction Material</h4></a></li>
+            <li><br><a href="{% url 'home:about_us' %}"><h4>About us</h4></a></li>
         </ul>
-    </div>
+    </aside>
 
     {% block body %} {% endblock %}
 
-   <footer>
-        <div class="footer-content">
-            <div class="company-info">
-                <h4>Company</h4>
-                <p>Leading provider of home appliances.</p>
-            </div>
-            <div class="about-us">
-                <h4>About Us</h4>
-                <p>Learn more about our company.</p>
-            </div>
-            <div class="contacts">
-                <h4>Contacts</h4>
-                <p>Email: info@company.com</p>
-                <p>Phone: +123 456 7890</p>
-            </div>
-            <div class="social-media">
-                <a href="#"><ion-icon class="ion-logo-vk" name="logo-vk"></ion-icon></a>
-                <a href="#"><ion-icon class="ion-logo-facebook" name="logo-facebook"></ion-icon></a>
-                <a href="#"><ion-icon class="ion-logo-linkedin" name="logo-linkedin"></ion-icon></a>
-            </div>
 
+<footer>
+        <div class="container">
+            <p>&copy; 2024 Hardware World Magazine. All rights reserved.</p>
         </div>
     </footer>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <script src="{% static 'js/scripts.js' %}"></script>
+
 </body>
 </html>
-

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+
+{% block body %}
+    <link rel="stylesheet" href="{% static 'css/login_register.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/sandstone/bootstrap.min.css">
+
+    <br><br>
+  <div class="login-container">
+      <h2>Login to Your Account</h2>
+      <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+
+          <p>don't have an account? <a href="{% url 'users:register' %}">register</a></p>
+          <button type="submit" class="login-btn">Login</button>
+      </form>
+  </div>
+
+
+{% endblock %}

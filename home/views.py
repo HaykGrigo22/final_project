@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 
 from home.models import Product
 
@@ -22,3 +22,6 @@ class ProductDetailView(DetailView):
                                                   exclude(id=product.id))
         return context
 
+
+class AboutUsView(TemplateView):
+    template_name = "home/about_us.html"

@@ -1,3 +1,5 @@
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import TemplateView, FormView, CreateView
 from django.contrib.auth import get_user_model
 from django.conf import settings
@@ -12,15 +14,6 @@ from django.http import HttpResponse
 from core.generate_token import generate_user_token
 
 User = get_user_model()
-
-
-class AllUserView(TemplateView):
-    template_name = "users/all_user.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["users"] = User.objects.all()
-        return context
 
 
 class EmailView(FormView):
@@ -51,14 +44,13 @@ class RegisterForm(CreateView):
         user.is_active = False
         user.save()
         token = generate_user_token.make_token(user)
-        body = render_to_string("email_body.html",
+        body = render_to_string("users/email_body.html",
                                 {"domain": get_current_site(self.request),
-                                 "user": user,
+                                 "users": user,
                                  "token": token,
                                  })
         email_instance = EmailMessage(subject=subject, body=body, to=[to_email])
         email_instance.send()
-        print(user.is_active)
         return response
 
 
@@ -71,5 +63,14 @@ class UserAccountActivation(TemplateView):
         if generate_user_token.check_token(user, token_id):
             user.is_active = True
             user.save()
-            return redirect("user:all_users")
+            return redirect("users:all_users")
         return HttpResponse("Invalid token")
+
+
+class LoginUser(LoginView):
+    form_class = AuthenticationForm
+    template_name = "users/login.html"
+
+
+class LogoutUser(LogoutView):
+    next_page = '/'
