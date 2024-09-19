@@ -80,3 +80,5 @@ class BasketDeleteView(View):
                 request.session["basket"] = basket
 
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+

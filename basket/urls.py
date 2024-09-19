@@ -9,3 +9,5 @@ urlpatterns = [
     path("basket-add/<int:product_id>/", views.BasketAddView.as_view(), name="basket_add"),
     path("basket-delete/<int:product_id>/", views.BasketDeleteView.as_view(), name="basket_delete"),
 ]
+
+
