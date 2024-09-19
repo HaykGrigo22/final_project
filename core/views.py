@@ -12,6 +12,35 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 
 from core.generate_token import generate_user_token
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework import serializers
+from django.contrib.auth import authenticate
+from django.utils.translation import gettext as _
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        # Custom validation using email instead of username
+        username_field = 'email'  # Update this if your user model uses a different field
+        username_value = attrs.get(username_field)
+        password = attrs.get('password')
+
+        user = authenticate(request=self.context.get('request'),
+                            **{username_field: username_value, 'password': password})
+
+        if not user:
+            raise serializers.ValidationError(
+                _('No active account found with the given credentials'),
+                code='authorization',
+            )
+
+        return super().validate(attrs)
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
 
 User = get_user_model()
 
@@ -46,7 +75,7 @@ class RegisterForm(CreateView):
         token = generate_user_token.make_token(user)
         body = render_to_string("users/email_body.html",
                                 {"domain": get_current_site(self.request),
-                                 "users": user,
+                                 "user": user,
                                  "token": token,
                                  })
         email_instance = EmailMessage(subject=subject, body=body, to=[to_email])
@@ -63,13 +92,14 @@ class UserAccountActivation(TemplateView):
         if generate_user_token.check_token(user, token_id):
             user.is_active = True
             user.save()
-            return redirect("users:all_users")
+            return redirect("home:home")
         return HttpResponse("Invalid token")
 
 
 class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = "users/login.html"
+    success_url = "/"
 
 
 class LogoutUser(LogoutView):

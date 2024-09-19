@@ -26,6 +26,7 @@ urlpatterns = [
     path("", include("core.urls", namespace="users")),
     path("", include("producer.urls", namespace="producer")),
     path("", include("category.urls", namespace="category")),
+    path("", include("basket.urls", namespace="basket")),
 ]
 
 

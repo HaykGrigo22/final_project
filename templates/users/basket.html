@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'css/basket.css' %}">
+
+
+    {% if baskets %}
+        <br><br><br>
+        <div class="total-sum">
+            <h2>Total Price: ${{ total_sum }}</h2>
+        </div>
+
+        {% if request.user.is_authenticated %}
+
+                {% for basket in baskets %}
+                    <ul>
+                        <li>
+                            <h3>{{ basket.product.name }}</h3>
+                            <img src="{{ basket.product.image.url }}" alt="Product Image">
+                            <p>Producer: {{ basket.product.producer }}</p>
+                            <p>Category: {{ basket.product.rate }}</p>
+                            <p>Price: ${{ basket.product.price }}</p>
+
+                            <div class="quantity-container">
+                                <p>Quantity: {{ basket.quantity }}</p>
+                            </div>
+
+                            <a href="{% url 'basket:basket_delete' basket.product.id %}"><button class="details-btn">Delete from Basket</button></a>
+                        </li>
+                    </ul>
+                {% endfor %}
+
+        {% else %}
+
+            {% for item in baskets %}
+                    <ul>
+                        <li>
+                            <h3>{{ item.product.name }}</h3>
+                            <img src="{{ item.product.image.url }}" alt="Product Image">
+                            <p>Price: ${{ item.product.price }}</p>
+
+                            <div class="quantity-container">
+                                <p>Quantity: {{ item.quantity }}</p>
+                            </div>
+
+                            <p>Producer: {{ item.product.producer }}</p>
+                            <p>Category: {{ item.product.category }}</p>
+
+                        </li>
+                    </ul>
+                {% endfor %}
+        {% endif %}
+
+    {% else %}
+        <h1>Empty Basket</h1>
+
+    {% endif %}
+
+{% endblock %}

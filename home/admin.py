@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from home.models import Product, Producer
+from home.models import Product, Producer, WishList
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -35,3 +35,4 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
+admin.site.register(WishList)
