@@ -92,6 +92,7 @@ class UserAccountActivation(TemplateView):
         if generate_user_token.check_token(user, token_id):
             user.is_active = True
             user.save()
+            messages.success(request, "You entered successfully!!!")
             return redirect("home:home")
         return HttpResponse("Invalid token")
 

@@ -3,9 +3,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView
+from rest_framework import generics, permissions
 
 from basket.models import Basket
 from home.models import Product, WishList
+from home.serializers import WishListSerializer
 
 
 class HomeListView(ListView):
@@ -87,3 +89,12 @@ class WishListView(ListView):
     template_name = "home/wish_list.html"
     context_object_name = 'wish_list'
     queryset = WishList.objects.all()
+
+
+class WishListAPIView(generics.ListAPIView):
+    serializer_class = WishListSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return WishList.objects.filter(user=user)
