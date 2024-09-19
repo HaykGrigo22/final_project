@@ -63,7 +63,7 @@ class RegisterForm(CreateView):
     template_name = "users/register.html"
     model = User
     form_class = UserRegisterForm
-    success_url = "/"
+    success_url = "/ "
 
     def form_valid(self, form):
         response = super().form_valid(form)
