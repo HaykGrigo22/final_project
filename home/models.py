@@ -15,14 +15,14 @@ User = get_user_model()
 class Product(models.Model):
     name = models.CharField(max_length=155)
     price = models.FloatField(validators=[valid_price])
-    producer = models.ForeignKey(Producer, on_delete=models.CASCADE, null=True, blank=True)
+    producer = models.ForeignKey(Producer, on_delete=models.CASCADE, null=True, blank=True, related_name="products")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField()
     year = models.IntegerField()
-    image = models.ImageField(upload_to=upload_product_image)
+    image = models.ImageField(upload_to=upload_product_image, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.producer} : {self.name}"
 
 
 class WishList(models.Model):

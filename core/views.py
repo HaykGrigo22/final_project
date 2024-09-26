@@ -1,9 +1,11 @@
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic import TemplateView, FormView, CreateView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, FormView, CreateView, DetailView, UpdateView
 from django.contrib.auth import get_user_model
 from django.conf import settings
-from core.forms import EmailForm, UserRegisterForm
+from core.forms import EmailForm, UserRegisterForm, UserProfileForm
 from django.http import HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, EmailMessage
@@ -21,8 +23,7 @@ from django.utils.translation import gettext as _
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
-        # Custom validation using email instead of username
-        username_field = 'email'  # Update this if your user model uses a different field
+        username_field = 'email'
         username_value = attrs.get(username_field)
         password = attrs.get('password')
 
@@ -92,7 +93,7 @@ class UserAccountActivation(TemplateView):
         if generate_user_token.check_token(user, token_id):
             user.is_active = True
             user.save()
-            messages.success(request, "You entered successfully!!!")
+            # messages.success(request, "You entered successfully!!!")
             return redirect("home:home")
         return HttpResponse("Invalid token")
 
@@ -103,5 +104,25 @@ class LoginUser(LoginView):
     success_url = "/"
 
 
-class LogoutUser(LogoutView):
+class LogoutUser(LoginRequiredMixin, LogoutView):
     next_page = '/'
+
+
+class UserProfileView(LoginRequiredMixin, TemplateView):
+    template_name = "users/profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user
+
+        return context
+
+
+class UpdateUserProfileView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = UserProfileForm
+    template_name = "users/update_profile.html"
+    success_url = reverse_lazy("users:profile")
+
+    def get_object(self, queryset=None):
+        return User.objects.get(email=self.request.user)

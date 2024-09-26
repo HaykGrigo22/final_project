@@ -19,7 +19,6 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("home.urls", namespace="home")),
@@ -27,8 +26,10 @@ urlpatterns = [
     path("", include("producer.urls", namespace="producer")),
     path("", include("category.urls", namespace="category")),
     path("", include("basket.urls", namespace="basket")),
+    path("", include("home.api.urls", namespace="api")),
+    # path("", include("chat.urls", namespace="chat")),
+    path('', include('chat.urls', namespace='chat'))
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

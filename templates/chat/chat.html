@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body %}
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+
+    <br><br><br><br><br>
+    <div id="chat">
+        <div id="message-list"></div> <!-- To display messages -->
+    </div>
+
+    <div id="chat-input">
+        <input id="chat-message-input" type="text" placeholder="Type your message here...">
+        <input id="chat-message-submit" type="submit" value="Send">
+    </div>
+
+{% endblock %}
+
+{% block include_js %}
+    <script id="room-slug" type="application/json">{{ room_slug|json_script:"room-slug" }}</script>
+{% endblock %}
+
+{% block domready %}
+    const roomSlug = JSON.parse(
+        document.getElementById('room-slug').textContent
+    );
+
+    // Establish the WebSocket connection
+    const chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/room/${roomSlug}/`);
+
+    chatSocket.onopen = function(event) {
+        console.log('WebSocket connected');
+    };
+
+    chatSocket.onclose = function(event) {
+        console.log('WebSocket disconnected');
+    };
+
+    chatSocket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        const messageList = document.getElementById('message-list');
+        messageList.innerHTML += `<div>${data.message}</div>`; // Append new message to the chat
+    };
+
+    // Handle message sending
+    document.getElementById('chat-message-submit').onclick = function(event) {
+        const messageInputDom = document.getElementById('chat-message-input');
+        const message = messageInputDom.value;
+
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+
+        messageInputDom.value = ''; // Clear the input field after sending
+        event.preventDefault(); // Prevent the form from submitting
+    };
+{% endblock %}

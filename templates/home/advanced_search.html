@@ -1,53 +1,63 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
 
 {% block body %}
+
+    <link rel="stylesheet" href="{% static 'css/advanced_search.css' %}">
+
     <br><br><br><br><br>
     <section id="search-bars">
-        <form class="d-flex mt-3" role="search" method="get" action="{% url 'home:advanced_search' %}">
-            <input class="form-control me-2" name="name" type="search" placeholder="name" aria-label="Search">
+        <form class="search-form" method="get" action="{% url 'home:advanced_search' %}">
+            <input class="form-control" name="name" type="search" placeholder="Name" aria-label="Search">
 
-            <input class="form-control me-2" name="producer" type="search" placeholder="producer" aria-label="Search">
+            <select class="form-control producer-select" name="producer">
+                <option value="">Select Producer</option>
+                {% for producer in producers %}
+                    <option value="{{ producer.id }}">{{ producer.name }}</option>
+                {% endfor %}
+            </select>
 
-            <input class="form-control me-2" name="min_price" type="search" placeholder="min price" aria-label="Search">
+            <input class="form-control" name="min_price" type="search" placeholder="Min Price" aria-label="Search">
+            <input class="form-control" name="max_price" type="search" placeholder="Max Price" aria-label="Search">
+            <input class="form-control" name="description" type="search" placeholder="Description" aria-label="Search">
 
-            <input class="form-control me-2" name="max_price" type="search" placeholder="max price" aria-label="Search">
+            <select class="form-control category-select" name="category">
+                <option value="">Select Category</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
 
-            <input class="form-control me-2" name="description" type="search" placeholder="description" aria-label="Search">
-
-            <input class="form-control me-2" name="category" type="search" placeholder="Category" aria-label="Search">
-
-            <button class="btn btn-success" type="submit">Search</button>
+            <button class="btn btn-primary" type="submit">Search</button>
         </form>
     </section>
 
-
-
-    <h2>Search Results</h2>
+    <h2 class="results-title">Search Results</h2>
     {% if products %}
     <div class="product-grid">
         {% for product in products %}
-            <article class="product">
+            <article class="product-card">
                 <a href="{% url 'home:product_detail' product.id %}">
                     <div class="product-image">
                         <img src="{{ product.image.url }}" alt="Product image">
                     </div>
                 </a>
-
-                <h3>{{ product.name }}</h3>
-                <h3>${{ product.price }}</h3>
-                <p>{{ product.description }}</p>
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p class="producer">Producer: {{ product.producer }}</p>
+                <p class="product-price">${{ product.price }}</p>
+                <p class="product-description">{{ product.description }}</p>
                 <div class="btn-container">
                     <button class="btn-buy">Buy Now</button>
-                    <a href="{% url 'basket:basket_add' product.id %}"><button class="btn-buy">Add to basket</button></a>
-                    <a href="{% url 'home:wish_list_add' product.id %}"><button class="btn-buy">Add to With List</button></a>
+                    <a href="{% url 'basket:basket_add' product.id %}"><button class="btn-buy">Add to Basket</button></a>
+                    <a href="{% url 'home:wish_list_add' product.id %}"><button class="btn-buy">Add to Wish List</button></a>
                 </div>
             </article>
         {% endfor %}
     </div>
-
-
+    {% else %}
+        <p>No products found.</p>
     {% endif %}
 
 

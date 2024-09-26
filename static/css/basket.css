@@ -1,27 +1,17 @@
-.quantity-container {
-    display: flex;
-    align-items: center;
+.basket-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.arrow-buttons {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-}
-
-.arrow-up,
-.arrow-down {
-    border: none;
-    background: transparent;
-    font-size: 15px;
-    cursor: pointer;
-    padding: 0;
-    line-height: 1;
-}
-
-.arrow-up:hover,
-.arrow-down:hover {
-    color: #e32d00;
+.basket-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #003366;
+    margin-bottom: 20px;
 }
 
 .total-sum {
@@ -33,5 +23,132 @@
     font-size: 1.5em;
     font-weight: bold;
     color: #343a40;
-    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.basket-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+}
+
+.basket-product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.basket-item-details {
+    flex: 1;
+}
+
+.product-name {
+    font-size: 1.5rem;
+    color: #003366;
+}
+
+.producer, .category, .price {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+}
+
+.delete-btn, .continue-shopping-btn {
+    background-color: #e32d00;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.delete-btn:hover, .continue-shopping-btn:hover {
+    background-color: #c62828;
+    transform: scale(1.05);
+}
+
+.empty-basket {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #555;
+    margin-top: 50px;
+}
+.basket-item {
+    display: flex;
+    align-items: center;
+    background-color: #fff; /* Background for the item */
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.basket-item:hover {
+    transform: scale(1.02); /* Slightly enlarge the item on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+.basket-product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.basket-item-details {
+    flex-grow: 1; /* Allow details to take up remaining space */
+}
+
+.delete-btn {
+    background-color: #e32d00; /* Red button */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth background change */
+}
+
+.delete-btn:hover {
+    background-color: #c02000; /* Darker red on hover */
+}
+
+.quantity-container {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;    /* Center items horizontally */
+    margin: 10px;
+}
+
+.quantity-btn {
+    background-color: #007BFF; /* Change as needed */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    width: 40px;  /* Adjust button width */
+}
+
+.quantity-btn:hover {
+    background-color: #0056b3; /* Darken button on hover */
+}
+
+#quantity {
+    width: 50px; /* Width of the quantity input */
+    text-align: center; /* Center text in input */
+    margin: 5px 0; /* Spacing around input */
 }

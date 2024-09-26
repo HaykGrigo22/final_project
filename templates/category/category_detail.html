@@ -1,10 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% load static %}
+
+
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'css/category_detail.css' %}">
+
+    <br><br><br>
+    <div class="category-detail-container">
+        <!-- Category Image -->
+        <div class="category-image">
+            <img src="{{ category.image.url }}" alt="{{ category.name }}" class="category-img">
+        </div>
+
+        <!-- Category Name -->
+        <h2 class="category-name">{{ category.name }}</h2>
+
+        <!-- Category Description -->
+        <p class="category-description">{{ category.description }}</p>
+
+        <h3 class="section-title">Products</h3>
+        <div class="products-grid">
+            {% for product in products %}
+                <article class="product">
+                    <a href="{% url 'home:product_detail' product.id %}">
+                        <div class="product-image">
+                            <img src="{{ product.image.url }}" alt="Product image">
+                        </div>
+                    </a>
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                    <div class="btn-container">
+                        <button class="btn-buy">Buy Now</button>
+                        <a href="{% url 'basket:basket_add' product.id %}">
+                            <button class="btn-buy">Add to basket</button>
+                        </a>
+                        <a href="{% url 'home:wish_list_add' product.id %}">
+                            <button class="btn-buy">Add to Wish List</button>
+                        </a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="{% static 'js/producers.js' %}"></script>
+
+
+{% endblock %}

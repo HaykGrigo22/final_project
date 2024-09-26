@@ -1,1 +1,36 @@
 {% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'css/about_us.css' %}">
+
+    <br><br>
+    <section class="about-container">
+        <h1>About Us</h1>
+        <p>Welcome to our store! We are dedicated to providing you with the best home appliances and exceptional service. Our team is passionate about helping you find the perfect products to suit your needs.</p>
+        <h2>Our Mission</h2>
+        <p>To deliver high-quality home appliances that enhance your lifestyle while ensuring outstanding customer satisfaction.</p>
+        <h2>Our Values</h2>
+        <ul>
+            <li>Quality: We believe in offering only the best products.</li>
+            <li>Integrity: We maintain transparency and honesty in all our dealings.</li>
+            <li>Customer Focus: Your needs are our priority.</li>
+        </ul>
+
+        <div class="tagline">
+            <h3>Experience the World of Home Appliances</h3>
+        </div>
+
+        <section class="contact-section">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or need assistance, feel free to reach out to us!</p>
+        </section>
+
+        <a href="{% url 'home:home' %}" class="home-button">Back to Home</a>
+    </section>
+
+
+{% endblock %}

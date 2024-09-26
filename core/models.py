@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import (PermissionsMixin,
                                         AbstractBaseUser, BaseUserManager)
 
+from helper.storage import upload_user_image
+
 
 class UserManager(BaseUserManager):
 
@@ -28,6 +30,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255, blank=True, null=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    image = models.ImageField(upload_to=upload_user_image, blank=True, null=True)
 
     objects = UserManager()
     USERNAME_FIELD = "email"

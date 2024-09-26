@@ -1,8 +1,62 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 
 {% block body %}
-  {{ producer.description }}
+
+    <link rel="stylesheet" href="{% static 'css/producer_detail.css' %}">
+
+    <br><br><br>
+    <div class="producer-detail-container">
+        <!-- Producer Logo -->
+        <img src="{{ producer.logo.url }}" alt="Producer Logo" class="producer-logo">
+
+        <!-- Producer Name -->
+        <h2 class="producer-name">{{ producer.producer_name }}</h2>
+
+        <!-- Producer Description -->
+        <p class="producer-description">{{ producer.description }}</p>
+
+        <!-- Add Product Button for Creator -->
+        {% if request.user == producer.creator %}
+            <a href="{% url 'home:add_product' %}"><button class="button">Add Product</button></a>
+        {% endif %}
+
+        <h3 class="section-title">Categories</h3>
+        <div class="categories-container">
+            {% for category in producer.categories.all %}
+                <div class="category-card">
+                    <a href="{% url 'category:producer_category' producer.id category.id %}"><h4 class="category-name">{{ category.name }}</h4></a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Products Section -->
+        <h3 class="section-title">Products</h3>
+        <div class="products-grid">
+            {% for product in products %}
+                <article class="product">
+                    <a href="{% url 'home:product_detail' product.id %}">
+                        <div class="product-image">
+                            <img src="{{ product.image.url }}" alt="Product image">
+                        </div>
+                    </a>
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                    <div class="btn-container">
+                        <button class="btn-buy">Buy Now</button>
+                        <a href="{% url 'basket:basket_add' product.id %}"><button class="btn-buy">Add to basket</button></a>
+                        <a href="{% url 'home:wish_list_add' product.id %}"><button class="btn-buy">Add to Wish List</button></a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+    <script src="{% static 'js/producer_detail.js' %}"></script>
 
 
 {% endblock %}

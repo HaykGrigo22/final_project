@@ -1,0 +1,109 @@
+/* General Styles */
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 30px 0;
+}
+
+.form-control {
+    flex: 1 1 200px; /* Flexible width */
+    margin: 5px;
+    padding: 15px; /* Increased padding for larger input */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem; /* Increased font size */
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.btn-primary {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 15px 25px; /* Increased padding for larger button */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem; /* Increased font size */
+    margin: 5px; /* Added margin for spacing */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Results Title */
+.results-title {
+    font-size: 1.8rem;
+    margin: 20px 0;
+}
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Product Card */
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Product Image */
+.product-image {
+    height: 150px;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Product Name and Price */
+.product-name {
+    font-size: 1.5rem;
+    color: #007BFF;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 10px 0;
+}
+
+/* Button Container */
+.btn-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.category-select option {
+    color: black; /* Ensure text color in options is black */
+}
+

@@ -1,16 +1,36 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 
 {% block body %}
-    <section class="products">
-        {% for producer in producers %}
-            <div class="product-card">
-                <a href="{% url 'producer:producer_detail' producer.id %}"><img src="{{ producer.logo.url }}" alt="Producer Logo"></a>
+
+    <link rel="stylesheet" href="{% static 'css/producers.css' %}">
+
+    <div id="content" class="container producers-container">
+        <h1>Our Producers</h1>
+        <br>
+        <button class="btn-add" onclick="window.location.href='{% url 'producer:add_producer' %}'">Add Producer</button>
+        <br><br>
+        <div class="producers-grid">
+            {% for producer in producers %}
+            <div class="producer-card">
+                {% if producer.logo and producer.logo.url %}
+                <a href="{% url 'producer:producer_detail' producer.id %}">
+                    <img src="{{ producer.logo.url }}" alt="Producer Logo" class="producer-logo">
+                </a>
+                {% else %}
+                <a href="{% url 'producer:producer_detail' producer.id %}">
+                    <img src="/static/images/default-logo.png" alt="Default Producer Logo" class="producer-logo">
+                </a>
+                {% endif %}
                 <h3>{{ producer.producer_name }}</h3>
-                <button>Add to Cart</button>
             </div>
-        {% endfor %}
-    </section>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="{% static 'js/producers.js' %}"></script>
+
 
 {% endblock %}
-

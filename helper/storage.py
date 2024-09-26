@@ -8,3 +8,7 @@ def upload_producer_logo_image(instance, filename):
 
 def upload_category_image(instance, filename):
     return f"category/{instance.name}/{filename}"
+
+
+def upload_user_image(instance, filename):
+    return f"user-image/{filename}"

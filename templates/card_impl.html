@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Window</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<body>
+    <div class="popup" id="popup">
+        <div class="popup-content">
+          <!-- Close button -->
+          <button class="close-btn" onclick="closePopup()">&times;</button>
+          
+          <!-- Left part with large product image -->
+          <div class="popup-left">
+            <img src="https://via.placeholder.com/600x800/FF5733/fff?text=Product+Image" alt="Product Image" class="product-image">
+          </div>
+          
+          <!-- Right part with product info -->
+          <div class="popup-right">
+            <h2>Product Title</h2>
+            <p class="description">This product has exceptional quality and design. It’s perfect for anyone who values style and functionality.</p>
+            <p class="price">$199.99</p>
+            
+            <!-- Buy Now button -->
+            <button class="buy-now">Buy Now</button>
+            
+            <!-- Add to Cart button -->
+            <button class="add-to-cart">Add to Cart</button>
+            
+            <div class="heart-icon" onclick="toggleHeart()">
+              <i class="far fa-heart"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      
+      
+      
+    <script src="script.js"></script>
+</body>
+</html>

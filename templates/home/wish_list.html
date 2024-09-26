@@ -1,8 +1,50 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 
 {% block body %}
 
+    <link rel="stylesheet" href="{% static 'css/wish_list.css' %}">
+
+    <br><br>
+    <div class="wish-list-container">
+
+        {% if wish_list_products %}
+            <h2 class="wish-list-title">My Wish List</h2>
+            <div class="products-grid">
+                {% for wish_item in wish_list_products %}
+                    <article class="product-card">
+                        <a href="{% url 'home:product_detail' wish_item.product.id %}">
+                            <div class="product-image">
+                                <img src="{{ wish_item.product.image.url }}" alt="{{ wish_item.product.name }}">
+                            </div>
+                        </a>
+                        <h3 class="product-name">{{ wish_item.product.name }}</h3>
+                        <p class="product-description">{{ wish_item.product.description }}</p>
+                        <div class="btn-container">
+                            <a href="{% url 'basket:basket_add' wish_item.product.id %}">
+                                <button class="btn-buy">Add to Basket</button>
+                            </a>
+                            <form method="post" action="{% url 'home:wish_list_remove' wish_item.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-remove">Remove from Wish List</button>
+                            </form>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-wish-list">
+                <h3 class="empty-message">Your Wish List is Empty</h3>
+                <a href="{% url 'home:home' %}">
+                    <button class="btn-empty-wish-list">Go to Home</button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="{% static 'js/wish_list.js' %}"></script>
 
 
-{% end block %}
+{% endblock %}

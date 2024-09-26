@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hardware Web Magazine</title>
+    {% block title %}<title>Hardware Web Magazine</title>{% endblock %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
@@ -16,14 +16,17 @@
             <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
         </div>
         <div class="top-bar-center">
-            <input type="text" placeholder="Search products..." class="search-bar">
+            <form action="{% url 'home:search' %}" method="get" class="search-form">
+                <input type="text" name="search" placeholder="Search products..." class="search-bar">
+                <button type="submit" style="display: none;">Search</button>
+            </form>
         </div>
         <div class="top-bar-right">
             {% if not request.user.is_authenticated %}
                 <a href="{% url 'users:register' %}"><button class="login-btn">Register</button></a>
                 <a href="{% url 'users:login' %}"><button class="login-btn">Login</button></a>
             {% else %}
-                <button class="login-btn">Profile</button>
+                <a href="{% url 'users:profile' %}"><button class="login-btn">Profile</button></a>
                 <a href="{% url 'users:logout' %}"><button class="login-btn">logout</button></a>
             {% endif %}
         </div>
@@ -56,6 +59,15 @@
     </footer>
 
     <script src="{% static 'js/scripts.js' %}"></script>
+
+    {% block include_js %}
+    {% endblock %}
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            {% block domready %}
+            {% endblock %}
+        })
+    </script>
 
 </body>
 </html>

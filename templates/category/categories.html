@@ -1,15 +1,28 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 
 {% block body %}
-    <section class="products">
-        {% for category in categories %}
-            <div class="product-card">
-                <a href="{% url 'category:category_detail' category.id %}"><img src="{{ category.image.url }}" alt="Category Image"></a>
-                <h3>{{ category.name }}</h3>
-                <button>Add to Cart</button>
-            </div>
-        {% endfor %}
-    </section>
+
+    <link rel="stylesheet" href="{% static 'css/categories.css' %}">
+
+    <br><br><br><br>
+    <div class="categories-page">
+        <h1 class="page-title">Categories</h1>
+        <div class="categories-container">
+            {% for category in categories %}
+                <div class="category-card">
+                    <a href="{% url 'category:category_detail' category.id %}" class="category-link">
+                        <div class="category-image">
+                            <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                        </div>
+                        <h3 class="category-name">{{ category.name }}</h3>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
 
 {% endblock %}

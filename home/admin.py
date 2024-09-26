@@ -5,10 +5,10 @@ from home.models import Product, Producer, WishList
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ["name", "producer", "price", "category", "year"]
-    list_display_links = ["producer", "category"]
+    list_display_links = ["name", "producer", "category"]
     list_filter = ["producer", "category"]
     search_fields = ["name", "price"]
-    list_editable = ["name", "year"]
+    list_editable = ["year"]
     fieldsets = [
         (
             None,

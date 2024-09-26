@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+    <br><br>
+    <div class="profile-container">
+        <h2 class="profile-title">User Profile</h2>
+        <div class="profile-info">
+            {% if user.image %}
+                <img src="{{ user.image.url }}" alt="Profile Picture" class="profile-image">
+            {% else %}
+                <img src="{% static 'image/default_user_image.png' %}" alt="Profile Picture" class="profile-image">
+
+            {% endif %}
+            <div class="profile-details">
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+                <p><strong>Status:</strong> {% if user.is_active %}Active{% else %}Inactive{% endif %}</p>
+            </div>
+        </div>
+
+        <div class="profile-actions">
+            <h3>Your Links</h3>
+            <a href="{% url 'basket:basket' %}" class="profile-link">View Basket</a>
+            <a href="{% url 'home:wish_list' %}" class="profile-link">View Wish List</a>
+            <a href="{% url 'users:update_profile' %}" class="profile-link">Update Profile</a>
+        </div>
+    </div>
+
+{% endblock %}

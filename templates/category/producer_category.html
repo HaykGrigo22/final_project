@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'css/producer_category.css' %}">
+
+    <br><br><br><br><br><br>
+    <div class="producer-detail-page">
+        <div class="products-container">
+            {% for product in products %}
+                <article class="product">
+                    <a href="{% url 'home:product_detail' product.id %}">
+                        <div class="product-image">
+                            <img src="{{ product.image.url }}" alt="Product image">
+                        </div>
+                    </a>
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description|truncatechars:100 }}</p> <!-- Ограничим длину описания -->
+                    <div class="btn-container">
+                        <button class="btn-buy">Buy Now</button>
+                        <a href="{% url 'basket:basket_add' product.id %}"><button class="btn-buy">Add to basket</button></a>
+                        <a href="{% url 'home:wish_list_add' product.id %}"><button class="btn-buy">Add to Wish List</button></a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+        <div class="categories-container">
+            {% for category in producer.categories.all %}
+                <div class="category-card">
+                    <a href="{% url 'category:producer_category' producer.id category.id %}">
+                        <h4 class="category-name">{{ category.name }}</h4>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}

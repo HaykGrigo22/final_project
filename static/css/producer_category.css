@@ -1,0 +1,31 @@
+/* Контейнер для всех продуктов */
+.producer-detail-page .products-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Расстояние между карточками */
+    justify-content: flex-start; /* Выровнять карточки по левому краю */
+    padding: 20px; /* Внутренние отступы контейнера */
+    background-color: #f9f9f9; /* Цвет фона контейнера */
+    border-radius: 10px; /* Округленные углы */
+    border: 1px solid #ddd; /* Лёгкая рамка */
+    max-width: 1200px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Центрируем контейнер на странице */
+}
+
+/* Карточка продукта */
+.producer-detail-page .product {
+    flex: 0 1 calc(33.333% - 40px); /* Размер карточек (1/3 ширины контейнера минус отступы) */
+    box-sizing: border-box; /* Учитываем отступы */
+    border: 1px solid #e0e0e0; /* Лёгкая рамка */
+    padding: 20px;
+    background-color: #fff; /* Цвет фона карточки */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+    border-radius: 10px; /* Округлые углы */
+    transition: transform 0.3s ease-in-out; /* Анимация при наведении */
+    max-width: 300px; /* Фиксированная ширина карточки */
+    height: 450px; /* Фиксированная высота карточки */
+    display: flex; /* Используем Flexbox внутри карточки */
+    flex-direction: column; /* Располагаем элементы по вертикали */
+    justify-content: space-between; /* Равномерное распределение элементов по вертикали */
+    margin: 10px 0; /* Отступ сверху и снизу для карточек */
+}

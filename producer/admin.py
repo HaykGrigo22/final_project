@@ -14,7 +14,7 @@ class ProducerAdmin(admin.ModelAdmin):
         ),
         (
             "Producer info",
-            {"fields": ("categories", "description")}
+            {"fields": ("categories", "description", "creator")}
         ),
         (
             "image",

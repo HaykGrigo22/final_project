@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/sandstone/bootstrap.min.css">
+
+    <br><br><br>
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form|crispy }}
+
+        <input type="submit" value="Add">
+    </form>
+
+
+
+{% endblock %}

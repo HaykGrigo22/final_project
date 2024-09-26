@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/sandstone/bootstrap.min.css">
+
+    <br><br><br><br>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Producer with Products</title>
+    <style>
+        .form-row {
+            margin-bottom: 10px;
+        }
+    </style>
+    <script>
+        // JavaScript для добавления новой формы продукта при нажатии на кнопку "Add More"
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('add-more').addEventListener('click', function() {
+                const formsetContainer = document.getElementById('formset-container');
+                const totalForms = document.getElementById('id_product_set-TOTAL_FORMS');
+
+                // Клонирование скрытой пустой формы и замена `__prefix__` на номер новой формы
+                const newFormNum = parseInt(totalForms.value);
+                const newFormHtml = document.querySelector('.empty-form').innerHTML.replace(/__prefix__/g, newFormNum);
+
+                // Вставляем новую форму в контейнер formset
+                const newFormElement = document.createElement('div');
+                newFormElement.classList.add('form-row');
+                newFormElement.innerHTML = newFormHtml;
+                formsetContainer.appendChild(newFormElement);
+
+                // Увеличиваем общее количество форм
+                totalForms.value = newFormNum + 1;
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Add Producer with Products</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Producer Information</h2>
+        {{ producer_form|crispy }}
+
+        <h2>Products</h2>
+        <div id="formset-container">
+            {{ product_formset.management_form }}
+            {% for form in product_formset %}
+                <div class="form-row">
+                    {{ form|crispy }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="button" id="add-more" class="btn">Add More</button>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+
+    <div class="form-row empty-form" style="display: none;">
+        {{ product_formset.empty_form|crispy }}
+    </div>
+</body>
+</html>
+
+
+
+{% endblock %}
