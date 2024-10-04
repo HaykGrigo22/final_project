@@ -17,6 +17,8 @@ class UserRegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["email"].required = True
+        self.fields["password1"].required = True
+        self.fields["password2"].required = True
 
     class Meta:
         model = User

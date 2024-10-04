@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/delete_producer.css' %}">
+
+<br><br><br><br><br><br>
+<div class="container mt-5">
+    <h1>Delete Producer</h1>
+    <p>Are you sure you want to delete "{{ object.producer_name }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <a href="{% url 'producer:delete_producer' producer.id %}"><button type="submit" class="btn btn-danger">Confirm Delete</button></a>
+        <a href="{% url 'producer:producer_detail' producer.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

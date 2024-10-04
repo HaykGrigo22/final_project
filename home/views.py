@@ -1,11 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, TemplateView, CreateView
+from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
 from category.models import Category
+from home.forms import ProductForm
 from home.models import Product, WishList
 from producer.models import Producer
 
@@ -14,7 +16,19 @@ class HomeListView(ListView):
     model = Product
     template_name = "home/home.html"
     context_object_name = 'products'
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().order_by('name')
+    paginate_by = 3
+
+
+def product_detail_view(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    data = {
+        'name': product.name,
+        'description': product.description,
+        'price': product.price,
+        'image': product.image.url,
+    }
+    return JsonResponse(data)
 
 
 class ProductDetailView(DetailView):
@@ -25,13 +39,42 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         product = self.object
-        context["similar_product_by_producer"] = (Product.objects.filter(producer=product.producer).
-                                                  exclude(id=product.id))
+        request = self.request
+
+        if request.GET.get("producer"):
+            context["similar_products"] = (Product.objects.filter(producer=product.producer, category=product.category).
+                                           exclude(id=product.id))
+        elif request.GET.get("category"):
+            context["similar_products"] = (Product.objects.filter(category=product.category).
+                                           exclude(id=product.id))
+        elif request.GET.get("price"):
+            context["similar_products"] = (
+                Product.objects.filter(
+                    Q(price__gte=product.price - 20) & Q(price__lte=product.price + 20) & Q(category=product.category)).
+                exclude(id=product.id))
+
+        else:
+            context["similar_products"] = Product.objects.filter(
+
+                Q(producer=product.producer, category=product.category) |
+
+                Q(category=product.category) |
+
+                (Q(price__gte=product.price - 5) & Q(price__lte=product.price + 5) & Q(category=product.category))
+
+            ).exclude(id=product.id)
+        # context["similar_product_by_producer"] = (Product.objects.filter(producer=product.producer).
+        #                                           exclude(id=product.id))
+
         return context
 
 
 class AboutUsView(TemplateView):
     template_name = "home/about_us.html"
+
+
+class ModalView(TemplateView):
+    template_name = "home/modal.html"
 
 
 class WishListAddView(LoginRequiredMixin, View):
@@ -106,28 +149,19 @@ class WishListView(TemplateView):
         return context
 
 
-class ProductListView(View):
-    def get(self, request):
-        products = Product.objects.all()
-        return render(request, 'your_template.html', {'products': products})
-
-    def post(self, request):
-        product_id = request.POST.get('product_id')
-        product = get_object_or_404(Product, id=product_id)
-        products = Product.objects.all()  # Получаем все продукты для отображения
-        return render(request, 'your_template.html', {'products': products, 'popup': product})
-
-
 class AddProductView(CreateView):
     model = Product
     fields = ["name", "price", "producer", "category", "description", "year", "image"]
     template_name = "home/add_product.html"
 
+    def get_success_url(self):
+        return reverse('home:home')
+
 
 class SearchView(ListView):
     model = Product
     template_name = "home/search.html"
-    context_object_name = "results"
+    context_object_name = "products"
 
     def get_queryset(self):
         query = self.request.GET.get('search')
@@ -138,3 +172,26 @@ class SearchView(ListView):
                 Q(description__icontains=query)
             )
         return object_list
+
+
+class UpdateProductView(LoginRequiredMixin, UpdateView):
+    model = Product
+    form_class = ProductForm
+    template_name = "home/update_product.html"
+
+    def get_success_url(self):
+        return reverse_lazy("home:product_detail",
+                            kwargs={"pk": self.object.pk})
+
+    def get_object(self, queryset=None):
+        return super().get_object(queryset)
+
+
+class DeleteProductView(LoginRequiredMixin, DeleteView):
+    model = Product
+    template_name = 'home/delete_product.html'
+    success_url = reverse_lazy('home:home')
+
+    def get_object(self, queryset=None):
+        return super().get_object(queryset)
+

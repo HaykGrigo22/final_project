@@ -21,6 +21,7 @@
         <!-- Add Product Button for Creator -->
         {% if request.user == producer.creator %}
             <a href="{% url 'home:add_product' %}"><button class="button">Add Product</button></a>
+            <a href="{% url 'producer:update_producer' producer.id %}"><button class="button">Update Producer Info</button></a>
         {% endif %}
 
         <h3 class="section-title">Categories</h3>

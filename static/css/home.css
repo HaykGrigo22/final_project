@@ -211,3 +211,47 @@ footer {
 .-social-media ion-icon.ion-logo-linkedin:hover {
     color: #0077B5;
 }
+
+.btn-container {
+    display: flex;
+    justify-content: center; /* Center align buttons */
+    align-items: center; /* Align items vertically */
+    gap: 15px; /* Space between elements */
+}
+
+.icon-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none; /* Remove underline from link */
+    padding: 10px; /* Space around the icon */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f4f4f4; /* Light background for the icon link */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.icon-link ion-icon {
+    font-size: 24px; /* Adjust icon size */
+    color: #333; /* Icon color */
+}
+
+.icon-link:hover {
+    background-color: #e0e0e0; /* Darker background on hover */
+    transform: scale(1.1); /* Slight scale effect on hover */
+}
+
+.btn-buy {
+    padding: 10px 20px; /* Adjust button padding */
+    background-color: #007BFF; /* Button background color */
+    border: none; /* No border */
+    color: white; /* Button text color */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.btn-buy:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slight scale effect on hover */
+}
+

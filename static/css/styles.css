@@ -204,6 +204,8 @@ header.top-bar {
 .btn-container {
     display: flex;
     justify-content: center;
+    text-align: center;
+
 }
 
 .btn-buy {
@@ -240,4 +242,29 @@ header.top-bar {
     .product-grid {
         grid-template-columns: 1fr;
     }
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.step-links a, .step-links .current {
+    margin: 0 5px;
+    padding: 8px 12px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #333;
+}
+
+.step-links .current {
+    font-weight: bold;
+    background-color: #007BFF;
+    color: white;
+}
+
+.step-links a:hover {
+    background-color: #007BFF;
+    color: white;
 }

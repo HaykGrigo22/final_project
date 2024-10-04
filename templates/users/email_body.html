@@ -1,8 +1,8 @@
 {% autoescape on %}
 Dear Customer
-Thank you for using our {{ domain }}
+Thank you for using our {{ site_name }}
 
 please validate your profile with link bellow
 
-<a href="{{ domain }}/validate/{{ user.pk }}/{{ token }}">link</a>
+{{ domain }}/validate/{{ user.id }}/{{ token }}
 {% endautoescape %}

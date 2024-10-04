@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/sandstone/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'css/update_producer.css' %}">
+
+<br><br>
+<div class="container mt-5">
+    <h1 class="mb-4">Update Producer</h1>
+    <form method="post" enctype="multipart/form-data" class="update-producer-form">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Update Producer</button>
+            <a href="{% url 'producer:delete_producer' producer.id %}" class="btn btn-warning">Delete Producer</a>
+            <a href="{% url 'producer:producer_detail' producer.id %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

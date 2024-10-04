@@ -1,33 +1,56 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
 {% block body %}
 
+
+<link rel="stylesheet" href="{% static 'css/product_detail_modal.css' %}">
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 <div id="content" class="container">
-        <section class="content">
-            <h1>Our Products</h1>
+    <section class="content">
+        <h1>Our Products</h1>
 
-
-            <div class="product-grid">
-                {% for product in products %}
-                    <article class="product">
-                        <a href="{% url 'home:product_detail' product.id %}">
-                            <div class="product-image">
-                                <img src="{{ product.image.url }}" alt="Product image">
-                            </div>
-                        </a>
-                        <h3>{{ product.name }}</h3>
-                        <p>{{ product.description }}</p>
-                        <div class="btn-container">
-                            <button class="btn-buy">Buy Now</button>
-                            <a href="{% url 'basket:basket_add' product.id %}"><button class="btn-buy">Add to basket</button></a>
-                            <a href="{% url 'home:wish_list_add' product.id %}"><button class="btn-buy">Add to Wish List</button></a>
+        <div class="product-grid">
+            {% for product in products %}
+                <article class="product">
+                    <a href="{% url 'home:product_detail' product.id %}">
+                        <div class="product-image">
+                            <img src="{{ product.image.url }}" alt="Product image">
                         </div>
-                    </article>
-                {% endfor %}
-            </div>
-        </section>
-    </div>
+                    </a>
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                   <div class="btn-container">
+                        <a href="{% url 'home:wish_list_add' product.id %}" class="icon-link">
+                            <ion-icon name="basket-outline"></ion-icon>
+                        </a>
+                        <button class="btn-buy" data-toggle="modal" data-target="#modal{{ product.id }}">Buy Now</button>
+                        <a href="{% url 'basket:basket_add' product.id %}" class="icon-link">
+                            <ion-icon name="heart-outline"></ion-icon>
+                        </a>
+                    </div>
+                </article>
 
+                <!-- Modal -->
+                <div class="modal" id="modal{{ product.id }}" style="display: none;">
+                    <div class="modal-content">
+                        <span class="close" data-dismiss="modal" aria-label="Close">&times;</span>
+                        <h2>{{ product.name }}</h2>
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        <p>{{ product.description }}</p>
+                        <button class="btn-basket">Add to basket</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+<script src="{% static 'js/product_detail_modal.js' %}"></script>
+
+{% include 'home/pagination.html' %}
 
 {% endblock %}

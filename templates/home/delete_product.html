@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block body %}
+
+<link rel="stylesheet" href="{% static 'css/delete_product.css' %}">
+
+<br><br><br><br>
+<div class="container">
+    <h1>Delete Product</h1>
+    <p>Are you sure you want to delete the product: <strong>{{ product.name }}</strong>?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <a href="{% url 'home:delete_product' product.id %}"><button type="submit" class="btn btn-danger">Delete</button></a>
+        <a href="{% url 'home:product_detail' product.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

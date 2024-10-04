@@ -13,4 +13,8 @@ urlpatterns = [
     path('search/', views.SearchView.as_view(), name="search"),
     path("advanced-search/", views.AdvancedSearchView.as_view(), name="advanced_search"),
     path("add-product/", views.AddProductView.as_view(), name="add_product"),
+    path('products/<int:product_id>/modal/', views.product_detail_view, name='product_detail_modal'),
+    path("modal/", views.ModalView.as_view(), name="modal_window"),
+    path('product/update/<int:pk>/', views.UpdateProductView.as_view(), name='update_product'),
+    path('product/delete/<int:pk>/', views.DeleteProductView.as_view(), name='delete_product'),
 ]

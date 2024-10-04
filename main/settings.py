@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     "crispy_forms",
     "crispy_bootstrap5",
+    "django_celery_beat",
+    'django_celery_results',
     'home.apps.HomeConfig',
     "core.apps.CoreConfig",
     "producer.apps.ProducerConfig",
@@ -89,7 +91,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'main.wsgi.application'
 ASGI_APPLICATION = "main.asgi.application"
 
-
 # CHANNEL_LAYERS = {
 #     "default": {
 #         "BACKEND": "channels_redis.core.RedisChannelLayer",
@@ -104,7 +105,6 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels.layers.InMemoryChannelLayer",
     },
 }
-
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -184,7 +184,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 CART_SESSION_ID = 'cart'
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -242,3 +241,21 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
+
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BEAT_SCHEDULE = {
+    "request_external_api": {
+        "task": "core.tasks.external_api",
+        "schedule": 4
+    },
+}
+
+SECURE_SSL_REDIRECT = False
+
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+
+SECURE_HSTS_SECONDS = 3600
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True

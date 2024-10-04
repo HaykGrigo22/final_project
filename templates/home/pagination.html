@@ -1,0 +1,94 @@
+<style>
+    /* Pagination Styles */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+        font-size: 1rem;
+    }
+
+    .pagination a {
+        color: black;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 1px solid #ddd;
+        margin: 0 4px;
+        border-radius: 5px;
+    }
+
+    .pagination a.active {
+        background-color: #007BFF;
+        color: white;
+        border: 1px solid #007BFF;
+    }
+
+    .pagination a:hover:not(.active) {
+        background-color: #ddd;
+    }
+
+    .pagination a.disabled {
+        pointer-events: none;
+        color: #bbb;
+    }
+
+    .pagination .arrow {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .pagination .arrow.disabled {
+        cursor: not-allowed;
+        color: #bbb;
+    }
+
+    .pagination .arrow:hover {
+        background-color: #007BFF;
+        color: white;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="pagination">
+        <!-- Django template logic -->
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="arrow">&laquo;</a>
+            <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+        {% endif %}
+
+        <a href="#" class="active">{{ page_obj.number }}</a>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+            <a href="?page={{ page_obj.next_page_number }}" class="arrow">&raquo;</a>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const paginationLinks = document.querySelectorAll('.pagination a');
+
+        paginationLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Check if link is not disabled
+                if (!this.classList.contains('disabled')) {
+                    // Smooth scroll to top
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Highlight the current page
+        const currentPage = document.querySelector('.pagination a.active');
+        if (currentPage) {
+            currentPage.style.backgroundColor = '#007BFF';
+            currentPage.style.color = 'white';
+        }
+    });
+</script>

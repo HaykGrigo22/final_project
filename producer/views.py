@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from home.models import Product
 from producer.forms import ProducerForm, ProductFormSet
@@ -50,7 +51,30 @@ class ProducerCreateView(LoginRequiredMixin, View):
                 product.producer = producer
                 product.save()
             return redirect(producer.get_absolute_url())
+
         return render(request, 'producer/add_producer.html', {
             'producer_form': producer_form,
             'product_formset': product_formset,
         })
+
+
+class UpdateProducerView(LoginRequiredMixin, UpdateView):
+    model = Producer
+    form_class = ProducerForm
+    template_name = "producer/update_producer.html"
+
+    def get_success_url(self):
+        return reverse_lazy("producer:producer_detail",
+                            kwargs={"pk": self.object.pk})
+
+    def get_object(self, queryset=None):
+        return super().get_object(queryset)
+
+
+class DeleteProducerView(LoginRequiredMixin, DeleteView):
+    model = Producer
+    template_name = 'producer/delete_producer.html'
+    success_url = reverse_lazy('producer:producers')
+
+    def get_object(self, queryset=None):
+        return super().get_object(queryset)

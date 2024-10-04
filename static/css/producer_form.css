@@ -1,0 +1,42 @@
+body {
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
+
+    h1, h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-row {
+        margin-bottom: 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        padding: 15px;
+        background-color: #ffffff;
+    }
+
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    #add-more {
+        background-color: #28a745;
+        color: #ffffff;
+    }
+
+    #add-more:hover {
+        background-color: #218838;
+    }
+
+    .empty-form {
+        display: none;
+    }

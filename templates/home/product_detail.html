@@ -1,8 +1,67 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 
 {% block body %}
-  {{ product.description }}
+
+<link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+
+<br><br><br><br>
+<div class="product-detail-container">
+    <div class="product-detail-top">
+        <div class="product-image">
+            <img src="{{ product.image.url }}" alt="Product image">
+        </div>
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+            <p>{{ product.description }}</p>
+            <div class="product-price">
+                <strong>Price: ${{ product.price }}</strong>
+            </div>
+            <br>
+            <a href="{% url 'producer:producer_detail' product.producer.id %}"><h3>{{ product.producer }}</h3></a>
+            <br>
+            <a href="{% url 'category:category_detail' product.category.id %}"><h3>{{ product.category }}</h3></a>
+
+            <div class="product-actions">
+                <button class="btn-buy">Buy Now</button>
+                <a href="{% url 'basket:basket_add' product.id %}"><button class="btn-add-to-cart">Add to Basket</button></a>
+                <a href="{% url 'home:wish_list_add' product.id %}"><button class="btn-add-to-wishlist">Add to Wishlist</button></a>
+                {% if request.user.email == product.producer.creator.email %}
+                    <a href="{% url 'home:update_product' product.id %}"><button class="btn-add-to-wishlist">Update Product Info</button></a>
+                    <a href="{% url 'home:delete_product' product.id %}"><button class="btn-add-to-wishlist">Delete Product</button></a>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <form method="GET" action="{% url 'home:product_detail' product.id %}" class="product-filters">
+        <h3>Filter By: </h3>
+        <button class="filter-btn">Reset</button>
+        <button class="filter-btn" name="producer" value="{{ product.producer.id }}">Producer</button>
+        <button class="filter-btn" name="category" value="{{ product.category.id }}">Category</button>
+        <button class="filter-btn" name="price" value="price_range">Price</button>
+    </form>
+    <div class="similar-products-section">
+        <h2>Similar Products</h2>
+        <div class="similar-products-carousel">
+            {% for similar_product in similar_products %}
+            <a href="{% url 'home:product_detail' similar_product.id %}">
+                <div class="similar-product-card">
+                    <img src="{{ similar_product.image.url }}" alt="Similar product image">
+                    <h4>{{ similar_product.name }}</h4>
+                    <p>${{ similar_product.price }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/product_detail.js' %}"></script>
+
 
 
 {% endblock %}
