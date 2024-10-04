@@ -106,7 +106,6 @@ class RegisterForm(CreateView):
         user.is_active = False
         user.save()
         token = generate_user_token.make_token(user)
-        print(user, user.id, user.pk)
         body = render_to_string("users/email_body.html",
                                 {"domain": "http://127.0.0.1:8000",
                                  "user": user,

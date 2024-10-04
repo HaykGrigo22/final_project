@@ -107,3 +107,9 @@ body {
     color: black; /* Ensure text color in options is black */
 }
 
+
+ion-icon {
+    color: red;
+    font-size: 32px
+}
+

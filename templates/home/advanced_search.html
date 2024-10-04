@@ -15,7 +15,7 @@
             <select class="form-control producer-select" name="producer">
                 <option value="">Select Producer</option>
                 {% for producer in producers %}
-                    <option value="{{ producer.id }}">{{ producer.name }}</option>
+                    <option value="{{ producer.id }}">{{ producer.producer_name }}</option>
                 {% endfor %}
             </select>
 

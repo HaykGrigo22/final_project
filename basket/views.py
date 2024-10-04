@@ -42,13 +42,17 @@ class UserBasketView(TemplateView):
         total_sum = 0
 
         basket_items = []
+
         for item in basket.values():
-            product = Product.objects.get(pk=item["id"])
-            basket_items.append({
-                "product": product,
-                "quantity": item['quantity']
-            })
-            total_sum += product.price * item['quantity']
+            try:
+                product = Product.objects.get(pk=item["id"])
+                basket_items.append({
+                    "product": product,
+                    "quantity": item['quantity']
+                })
+                total_sum += product.price * item['quantity']
+            except Product.DoesNotExist:
+                continue
 
         context["baskets"] = basket_items
         context["total_sum"] = total_sum

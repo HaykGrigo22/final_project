@@ -19,7 +19,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField()
     year = models.IntegerField()
-    image = models.ImageField(upload_to=upload_product_image, null=True, blank=True)
+    image = models.ImageField(upload_to=upload_product_image)
 
     def __str__(self):
         return f"{self.producer} : {self.name}"

@@ -72,9 +72,10 @@ class ProducerDetailAPIView(RetrieveAPIView):
 
 
 class AboutUsAPIView(APIView):
+    permission_classes = []
 
     def get(self, request):
-        response_data = {'received_text': "About"}
+        response_data = {'received_text': "About us some text"}
 
         return Response(response_data, status=status.HTTP_200_OK)
 
@@ -205,10 +206,6 @@ class ProductUpdateDeleteGetAPIView(APIView):
         airport = get_object_or_404(Product, pk=pk)
         return airport
 
-    def get(self, request, *args, **kwargs):
-        serializer = ProductSerializer(self.get_object(kwargs.get("pk")))
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
     def put(self, request, *args, **kwargs):
         serializer = ProductSerializer(data=request.data,
                                        instance=self.get_object(kwargs.get("pk")))
@@ -297,6 +294,7 @@ class BasketQuantityArrowDownAPIView(APIView):
 
 
 class AdvancedSearchAPIView(APIView):
+    permission_classes = []
 
     def get(self, request, *args, **kwargs):
         name = request.GET.get("name")

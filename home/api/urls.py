@@ -5,7 +5,9 @@ app_name = "api"
 
 urlpatterns = [
     path("api/v1/home/", views.HomeListAPIView.as_view(), name="api_home"),
-    path("api/v1/product-crud/<int:pk>/", views.ProductUpdateDeleteGetAPIView.as_view(), name="api_product_detail"),
+    path("api/v1/product-detail/<int:pk>/", views.ProductDetailAPIView.as_view(), name="api_product_detail"),
+    path("api/v1/product-update-delete/<int:pk>/", views.ProductUpdateDeleteGetAPIView.as_view(),
+         name="api_product_update_delete"),
     path("api/v1/product-create/", views.ProductCreateAPIView.as_view(), name="api_product_detail"),
 
     path("api/v1/user-logout/", views.LogoutAPIView.as_view(), name="api_logout_user"),
@@ -23,7 +25,7 @@ urlpatterns = [
     path("api/v1/about-us/", views.AboutUsAPIView.as_view(), name="api_about_us"),
 
     path("api/v1/search/", views.SearchAPIView.as_view(), name="api_search"),
-    path("api/advanced-search/", views.AdvancedSearchAPIView.as_view(), name="api_advanced_search"),
+    path("api/v1/advanced-search/", views.AdvancedSearchAPIView.as_view(), name="api_advanced_search"),
 
     path("api/v1/user-profile/", views.UserProfileGetUpdateAPIView.as_view(), name="api_user_profile"),
 
