@@ -1,28 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const modals = document.querySelectorAll('.modal');
-    const btns = document.querySelectorAll('.btn-buy');
-    const spans = document.querySelectorAll('.close');
-console.log(btns)
-    // Открытие модального окна
+    const modals = document.querySelectorAll('.popup'); // Select all popups
+    const btns = document.querySelectorAll('.btn-buy'); // Select all "Buy Now" buttons
+    const closeBtns = document.querySelectorAll('.close-btn'); // Select all close buttons
+
+    // Open the modal for each corresponding "Buy Now" button
     btns.forEach((btn, index) => {
         btn.onclick = function() {
-            modals[index].style.display = "block";
+            modals[index].style.display = "flex";
         }
     });
 
-    // Закрытие модального окна
-    spans.forEach((span, index) => {
-        span.onclick = function() {
+    // Close the modal for each corresponding close button
+    closeBtns.forEach((closeBtn, index) => {
+        closeBtn.onclick = function() {
             modals[index].style.display = "none";
         }
     });
 
-    // Закрытие модального окна при нажатии вне его
+    // Close the modal when clicking outside the modal content
     window.onclick = function(event) {
         modals.forEach((modal) => {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         });
-    };
+    }
 });

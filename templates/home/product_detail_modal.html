@@ -1,4 +1,31 @@
-<h2>{{ product.name }}</h2>
-<img src="{{ product.image.url }}" alt="{{ product.name }}" style="max-width: 100%;">
-<p>{{ product.description }}</p>
-<p>Price: {{ product.price }}</p>
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/product_detail_modal.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<div class="popup" id="popup">
+    <div class="popup-content">
+      <!-- Close button -->
+      <button class="close-btn">&times;</button>
+
+      <!-- Left part with large product image -->
+      <div class="popup-left">
+        <img src="{{ product.image.url }}" alt="Product Image" class="product-image">
+      </div>
+
+      <!-- Right part with product info -->
+      <div class="popup-right">
+        <h2>{{ product.name }}</h2>
+        <p class="description">{{ product.description }}</p>
+        <p class="price">${{ product.price }}</p>
+
+        <!-- Buy Now button -->
+        <button class="buy-now">Buy Now</button>
+
+        <div class="heart-icon" onclick="toggleHeart()">
+          <a href="{% url 'home:wish_list_add' product.id %}"><i class="far fa-heart"></i></a>
+          <a href="{% url 'basket:basket_add' product.id %}"><i class="fa fa-shopping-cart"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>

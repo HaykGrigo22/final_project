@@ -6,6 +6,7 @@
 
 
 <link rel="stylesheet" href="{% static 'css/product_detail_modal.css' %}">
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
@@ -35,15 +36,7 @@
                 </article>
 
                 <!-- Modal -->
-                <div class="modal" id="modal{{ product.id }}" style="display: none;">
-                    <div class="modal-content">
-                        <span class="close" data-dismiss="modal" aria-label="Close">&times;</span>
-                        <h2>{{ product.name }}</h2>
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
-                        <p>{{ product.description }}</p>
-                        <button class="btn-basket">Add to basket</button>
-                    </div>
-                </div>
+                {% include 'home/product_detail_modal.html' %}
             {% endfor %}
         </div>
     </section>
