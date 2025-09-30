@@ -42,12 +42,14 @@ class ProducerCreateView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         producer_form = ProducerForm(request.POST, request.FILES)
         product_formset = ProductFormSet(request.POST, request.FILES)
+        print(ProductFormSet.extra)
 
         if producer_form.is_valid() and product_formset.is_valid():
             producer = producer_form.save()
 
             products = product_formset.save(commit=False)
             for product in products:
+                print(product)
                 product.producer = producer
                 product.save()
             return redirect(producer.get_absolute_url())

@@ -34,33 +34,29 @@
 <script>
     // JavaScript for adding a new product form when clicking "Add More"
     document.addEventListener("DOMContentLoaded", function() {
-        const addMoreButton = document.getElementById('add-more');
-        const totalForms = document.getElementById('id_product_set-TOTAL_FORMS');
+    const addMoreButton = document.getElementById('add-more');
+    const formsetContainer = document.getElementById('formset-container');
+    let totalForms = 1 // Изменяем здесь
 
-        if (addMoreButton) {
-            addMoreButton.addEventListener('click', function() {
-                const formsetContainer = document.getElementById('formset-container');
+    if (addMoreButton && totalForms) {
+        addMoreButton.addEventListener('click', function() {
+            const formNum = parseInt(totalForms);
+            const newFormHtml = document.querySelector('.empty-form').innerHTML.replace(/__prefix__/g, formNum); // Подставляем новый номер
 
-                if (!totalForms) {
-                    console.error('Total Forms ID NOT Found');
-                    return;
-                }
+            const newFormElement = document.createElement('div');
+            newFormElement.classList.add('form-row');
+            newFormElement.innerHTML = newFormHtml;
 
-                const newFormNum = parseInt(totalForms.value);
-                const newFormHtml = document.querySelector('.empty-form').innerHTML.replace(/__prefix__/g, newFormNum);
+            formsetContainer.appendChild(newFormElement);
 
-                const newFormElement = document.createElement('div');
-                newFormElement.classList.add('form-row');
-                newFormElement.innerHTML = newFormHtml;
-                formsetContainer.appendChild(newFormElement);
+            // Увеличиваем значение TOTAL_FORMS
+            totalForms += formNum + 1;
+        });
+    } else {
+        console.error('Add More Button or Total Forms ID NOT Found');
+    }
+});
 
-                // Increment the total forms count
-                totalForms.value = newFormNum + 1;
-            });
-        } else {
-            console.error('Add More Button NOT Found');
-        }
-    });
 </script>
 
 {% endblock %}
